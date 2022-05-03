@@ -32,17 +32,19 @@ function openModal(edit = false, index = 0) {
 }
 
 function insertItem(students, index) {
-  const diaAtual = new Date().getDate() 
-    let pagamento = new Date(students.vencimento).setDate(students.vencimento) 
-    console.log(pagamento);
-  function validacao(){
-  
-    if(diaAtual >= pagamento){
+  const nome = students.nome
+  const day = new Date()
+  const pagamento = new Date(students.vencimento)
 
-      return `<i class='bx bxs-message-square-error' style='color:#ce3333'  ></i>`
+  function validacao(x,y){
+
+  
+    if(day > pagamento){
+
+      return `<p>Pendente</p>  <i class='bx bxs-message-square-error' style='color:#ce3333'  ></i>`
 
     }else{
-      return `<i class='bx bxs-message-square-check' style='color:#3cce33' ></i>` 
+      return `<p>Em dia</p> <i class='bx bxs-message-square-check' style='color:#3cce33' ></i>` 
 
     }
   }
@@ -52,30 +54,22 @@ function insertItem(students, index) {
     tr.innerHTML = `
       <td>${students.nome}</td>
       <td>${students.contato}</td>
-      <td> Dia ${pagamento}</td>
+      <td> ${pagamento.getDate()+1}/${pagamento.getMonth()+1}</td>
       <td class="acao">
-        <button onclick="paid(${index})">${validacao()}</button>
+        <button class="trinta">${validacao()}</button>
       </td>
       <td class="acao">
         <button onclick="editItem(${index})"><i class='bx bx-edit' ></i></button>
       </td>
       <td class="acao">
-        <button onclick="deleteItem(${index})"><i class='bx bx-trash'></i></button>
+        <button onclick="deleteItem(${nome, index})"><i class='bx bx-trash'></i></button>
       </td>
     `
-    validacao()
-    tbody.appendChild(tr)
-
-    
-
-  }
-
   
-function paid(index){
-  if(index){
-    pagamento + 30
+    validacao(day, pagamento)
+    tbody.appendChild(tr)    
+
   }
-}
 
 
 function editItem(index) {
@@ -84,7 +78,7 @@ function editItem(index) {
   }
   
 function deleteItem(index) {
-    const msg = `Tem certeza que deseja excluir ${students.name}?`
+    const msg = `Tem certeza que deseja excluir ${students[index].nome}?`
     if(!confirm(msg)) return
     students.splice(index, 1)
     saveStudents()

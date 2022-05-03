@@ -31,14 +31,17 @@ button {
   min-height: 70px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: auto 12px;
+ 
 }
 
 .header span {
   font-weight: 900;
   font-size: 20px;
   word-break: break-all;
+
+  align-items: center;
 }
 
 #new {
@@ -47,7 +50,13 @@ button {
   border-radius: 5px;
   border: none;
   color: rgb(0, 0, 0);
-  background-color: rgb(221, 181, 5);
+  font-weight: bold;
+  background-color: rgb(255, 238, 0);
+  border-bottom: 4px solid wheat;
+}
+#new:hover{
+  background-color: rgb(255, 235, 145);
+  color: white;
 }
 
 .divTable {
@@ -55,6 +64,7 @@ button {
   width: auto; 
   height:inherit; 
   overflow:auto;
+  text-align: center;
 }
 
 .divTable::-webkit-scrollbar {
@@ -78,29 +88,34 @@ thead {
   background-color: whitesmoke;
 }
 
+
 tr {
   border-bottom: 1px solid rgb(238, 235, 235)!important;
 }
 
 tbody tr td {
-  vertical-align: text-top;
+  text-align: center;
   padding: 6px;
   max-width: 50px;
+  
 }
 
 thead tr th {
   padding: 5px;
   text-align: start;
   margin-bottom: 50px;
+  text-align: center;
 }
 
 tbody tr {
   margin-bottom: 50px;
+
 }
 
 thead tr th.acao {
   width: 100px!important;
   text-align: center;
+  
 }
 
 tbody tr td.acao {
