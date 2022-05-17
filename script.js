@@ -32,13 +32,33 @@ function openModal(edit = false, index = 0) {
 }
 
 function insertItem(students, index) {
+
+  let x = function addMonth(sel, date){
+
+    if(sel.value == "Mensal"){
+        date = new Date(date.setMonth(date.getMonth()+1));
+        console.log(date);
+    }else{
+        date = new Date(date.setMonth(date.getMonth()+3));
+        console.log(date);
+    }
+  
+}
+
+
+
   const nome = students.nome
   const day = new Date()
-  const pagamento = new Date(students.vencimento)
+  let pagamento = new Date(students.vencimento)
+  let vencimento = `${pagamento.getDate()+1}/${pagamento.getMonth()+1}`
 
-  function validacao(x,y){
+  let datadehoje = new Date() + 31
+  let mes = new Date().getMonth() + 1
 
-  
+  console.log(datadehoje);
+
+
+  function validacao() {
     if(day > pagamento){
 
       return `<p>Pendente</p>  <i class='bx bxs-message-square-error' style='color:#ce3333'  ></i>`
@@ -53,20 +73,36 @@ function insertItem(students, index) {
   
     tr.innerHTML = `
       <td>${students.nome}</td>
-      <td>${students.contato}</td>
-      <td> ${pagamento.getDate()+1}/${pagamento.getMonth()+1}</td>
-      <td class="acao">
-        <button class="trinta">${validacao()}</button>
+      <td> ${vencimento}</td>
+      <td> 
+      <select>
+        <option> Mensal</option>
+        <option> Trimestral</option>
+        <option> Anual</option>
+      </select>
       </td>
+
       <td class="acao">
-        <button onclick="editItem(${index})"><i class='bx bx-edit' ></i></button>
+      <button class="trinta" onclick="addMonth(${pagamento})">
+      <i class='bx bxs-cart-add'></i>
+      </button>
+
+      </td>
+
+      <td class="acao">
+        <button>${validacao()}</button>
+      </td>
+
+
+      <td class="acao">
+        <button onclick="editItem(${index})"><i class='bx bx-edit'></i></button>
       </td>
       <td class="acao">
         <button onclick="deleteItem(${nome, index})"><i class='bx bx-trash'></i></button>
       </td>
     `
   
-    validacao(day, pagamento)
+    validacao()
     tbody.appendChild(tr)    
 
   }
@@ -87,7 +123,7 @@ function deleteItem(index) {
 
 btnSalvar.onclick = e => {
   
-    if (sNome.value == '' || sContato.value == '' || sVencimento.value == '') {
+    if (sNome.value == '') {
       return
     }
   
